@@ -97,6 +97,7 @@ class NavigationRail extends StatefulWidget {
     this.minExtendedWidth,
     this.useIndicator,
     this.indicatorColor,
+    this.mainAxisAlignment = MainAxisAlignment.start,
   }) :  assert(destinations != null && destinations.length >= 2),
         assert(selectedIndex != null),
         assert(0 <= selectedIndex && selectedIndex < destinations.length),
@@ -108,6 +109,9 @@ class NavigationRail extends StatefulWidget {
         assert(!extended || (labelType == null || labelType == NavigationRailLabelType.none)),
         super(key: key);
 
+  /// Indicates the [MainAxisAlignment] used in the underlying column. Defaults on [MainAxisAlignment.start]
+  final MainAxisAlignment alignment;
+  
   /// Sets the color of the Container that holds all of the [NavigationRail]'s
   /// contents.
   ///
@@ -417,6 +421,7 @@ class _NavigationRailState extends State<NavigationRail> with TickerProviderStat
                   alignment: Alignment(0, groupAlignment),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: widget.mainAxisAlignment,
                     children: <Widget>[
                       for (int i = 0; i < widget.destinations.length; i += 1)
                         _RailDestination(
